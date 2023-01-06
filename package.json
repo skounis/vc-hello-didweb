@@ -1,0 +1,22 @@
+{
+  "name": "vc-hello-didweb",
+  "version": "1.0.0",
+  "description": "How to create a DID:Web and issue Verifiable Credentials",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "keys": "node keys.js",
+    "jwt": "node did-jwt.js",
+    "vc": "node did-jwt-vc.js"
+  },
+  "type": "module",
+  "author": "Stavros Kounis",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "did-jwt": "^6.11.0",
+    "did-jwt-vc": "^3.1.0",
+    "did-resolver": "^4.0.1",
+    "elliptic": "^6.5.4",
+    "web-did-resolver": "^2.0.21"
+  }
+}
