@@ -8,6 +8,14 @@ It also makes available code snippets and fully working examples on how to:
 3. Create and Verify an arbitrary JWT.
 3. Issue and Verify Verifiable Credentials and Verifiable Presentations. 
 
+## Live
+Test the codebase live
+* https://replit.com/@StavrosKounis/W3C-VC-Hello-DID-Web?v=1
+
+Use the commands
+* Generate keys: `npm run keys`
+* Create and validate JWT: `npm run jwt`
+* Create and validate VCs: `npm start`
 
 ## Private and Public key pair
 The [Decentralized Identity library](https://github.com/decentralized-identity) makes available the `ES256KSigner` and `EdDSASigner` signers which use `a 32 byte secp256k1 private key` and `a 64 byte Ed25519 secret key`, respectively. 
