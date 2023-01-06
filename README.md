@@ -1,7 +1,7 @@
 # Hello DID:WEB and Verifiable Credentials
-A comprehensive example on `DID:WEB` and Verifiable Credentials using the [Decentralized Indentity](https://github.com/decentralized-identity) Javascript libraries.
+This repository provides a comprehensive example of DID:WEB and Verifiable Credentials using the [Decentralized Identity](https://github.com/decentralized-identity) Javascript libraries.
 
-This repository provides code snipets and fully working examples on how to:
+It also makes available code snippets and fully working examples on how to:
 
 1. Create a private/public key pair.
 2. Prepare and publish a DID:WEB
@@ -10,12 +10,12 @@ This repository provides code snipets and fully working examples on how to:
 
 
 ## Private and Public key pair
-The [Decentralized Indentity library](https://github.com/decentralized-identity) makes available the `ES256KSigner` and `EdDSASigner` signers which use a `A 32 byte secp256k1 private key` and `A 64 byte Ed25519 secret key` respectively. 
+The [Decentralized Identity library](https://github.com/decentralized-identity) makes available the `ES256KSigner` and `EdDSASigner` signers which use `a 32 byte secp256k1 private key` and `a 64 byte Ed25519 secret key`, respectively. 
 
 We will start with the former and introduce the latter right after. 
 
 ### Create a `secp256k1` key pair
-We will use the `crypto` library for generating a random 32byte string and the `elliptic` library for creating its public key. 
+We will use the `crypto` library to generate a random 32byte string and the `elliptic` library to create its public key. 
 
 ```javascript
 import crypto from 'crypto';
@@ -47,7 +47,7 @@ y (base64): eJiyCw5tXteQKYpaAqz3BdUTRQWqnEqrYPjTxMNehJw=
 
 > Important: 
 >
-> Keep the private `Key (hex)` in a safe location. We will use this string when we will issue and sign credentials. 
+> Keep the private `Key (hex)` in a safe location. We will use this string when we issue and sign credentials. 
 
 ### JSON Web Key (JWK)
 [JWK](https://www.rfc-editor.org/rfc/rfc7517) is one of the public key representations `DID` supports and what we will use for our `DID:WEB`.
@@ -63,9 +63,9 @@ Use the `base64` values from the above output and prepare the JSON structure as 
 ```
 
 ## Create and publish our DID:WEB
-To prepare our `DID:WEB` we need the `JWK` structure we prepare in the previous step and an identifier. The identifier comes from the URL where we will make our `DID` available. 
+To prepare our `DID:WEB`, we need the `JWK` structure we prepared in the previous step and an identifier. The identifier comes from the URL where we will make our `DID` available. 
 
-For example the `did:web:skounis.github.io` resolves to:
+For example, the `did:web:skounis.github.io` resolves to:
 
 * https://skounis.github.io/.well-known/did.json
 
@@ -99,16 +99,16 @@ For example the `did:web:skounis.github.io` resolves to:
 ```
 
 Use the above example and:  
-1. Replace the `did:web:skounis.github.io` with the `did` that corespend to the right domain.
+1. Replace the `did:web:skounis.github.io` with the `did`  that correspond to the correct domain.
 2. Replace the `publicKeyJwk` part with the values we generated in the previous step
 3. Save the file as `did.json` and make it publicly available under the `/.well-known/did.json` path.   
-e.g: https://skounis.github.io/.well-known/did.json
+e.g.: https://skounis.github.io/.well-known/did.json
 
 ## Sign and Verify JSON Web Tokens (JWT)
-Before we move to the Verifiable Credentials we will test our DID by singing and vefifying arbritary JWTs. We will use the `did-jwt` library from [Decentralized Identity](https://github.com/decentralized-identity/did-jwt). 
+Before we move to the Verifiable Credentials, we will test our DID by singing and verifying arbitrary JWTs. We will use the `did-jwt` library from [Decentralized Identity](https://github.com/decentralized-identity/did-jwt). 
 
 ### Create a signed JWT
-First we need to create a `Signer` using the `private` key (hex) we create before.
+First, we need to create a `Signer` using the `private` key (hex) we prepared before.
 
 ```javascript
 import { ES256KSigner, hexToBytes } from 'did-jwt';
@@ -138,11 +138,11 @@ console.log('JWT Decoded:\n',decoded)
 ### Verify the JWT
 This process resolves the `DID:WEB` and uses its public key to verify the signature of the JWT. If the signature verifies the code returns (and displays) the payload. If not it displayes an error message (exception).
 
-We use again the `did-resolver` and `web-did-resolver` libraries from [Decentralized Identity](https://github.com/decentralized-identity).
+We again use the `did-resolver` and `web-did-resolver` libraries from [Decentralized Identity](https://github.com/decentralized-identity).
 
-We create a `webResolver` which uses the `DID` identifier, in this case `did:web:skounis.github.io` and resolves its public keys. 
+We create a `webResolver` that uses the `DID` identifier, in this case, `did:web:skounis.github.io` and resolves its public keys. 
 
-The library detects the signing method, constructs the public key and verifies the signature of the JWT. 
+The library detects the signing method, constructs the public key, and verifies the signature of the JWT. 
 
 ```javascript
 import { verifyJWT } from 'did-jwt';
@@ -166,10 +166,10 @@ verifyJWT(jwt, {
 We have put all these together into the `did-jwt.js` file that
 1. Prepares a `signer` 
 2. Creates a signed JWT
-3. Unpack (decode) and displaes the JWT
+3. Unpacks (decode) and displays the JWT
 4. Resolves the `DID:WEB` and verifies the JWT
 
-We can test it by running:
+We can test it by running the following:
 
 ```bash
  npm run jwt
@@ -205,13 +205,13 @@ eyJhbGciOiJFUzI1NksiLCJ0eXAiOiJKV1QifQ.eyJpYXQiOjE2NzMwMDc0MDcsImF1ZCI6ImRpZDp3Z
 ```
 
 ## Create Verifiable Credential and Verifiable Presentation.
-With all the pieces in place we are ready to work with actual W3C Verifiable Credentials and Presentations.
+With all the pieces in place, we are ready to work with actual W3C Verifiable Credentials and Presentations.
 
 ### Prepare the Signer
-For singing our credentials we will re-use the `Signer` we already created before. This signer uses our private key.
+We will re-use the Signer we already created before to sign our credentials. This signer uses our private key.
 
 ### Payload
-Our Verifiable Credentail needs a payload with a structure according to the [W3C Verifiable Credentials Data Model v1.1](https://www.w3.org/TR/vc-data-model/#jwt-encoding).
+Our Verifiable Credential  needs a payload with a structure according to the [W3C Verifiable Credentials Data Model v1.1](https://www.w3.org/TR/vc-data-model/#jwt-encoding).
 
 ```javascript
 const vcPayload = {
@@ -231,7 +231,7 @@ const vcPayload = {
 ```
 
 ### Create the Verifiable Credential
-Before we move with the creation of the credentials we need to prepare our `issuer` object. A structure that caries our `did` and the `signer` we already prepared. 
+Before we move with the creation of the credentials, we need to prepare our `issuer` object. A structure that carries our `did` and the `signer` we already prepared. 
 
 ```javascript
 const issuer = {
@@ -240,7 +240,7 @@ const issuer = {
 }
 ```
 
-With the `issuer` and the `vcPayload` prepared we use the `did-jwt-vc` library and create the credential as follows:
+With the `issuer` and the `vcPayload` prepared, we use the `did-jwt-vc` library and create the credential as follows:
 
 ```javascript
 import { createVerifiableCredentialJwt } from 'did-jwt-vc'
@@ -248,11 +248,11 @@ const vcJwt = await createVerifiableCredentialJwt(vcPayload, issuer)
 console.log(vcJwt)
 ```
 
-This gives us back our VC in a form of JWT. 
+This gives us back our VC in the form of JWT. 
 
 ### Create the Verifiable Presentation
 
-Similarly to the Credentials we need to prepare a payload and then use it for creating the signed Presentation.
+Similarly to the Credentials, we need to prepare a payload and then use it for creating the signed Presentation.
 
 ```javascript
 import { createVerifiablePresentationJwt } from 'did-jwt-vc'
@@ -271,10 +271,10 @@ const vpJwt = await createVerifiablePresentationJwt(vpPayload, issuer)
 console.log(vpJwt)
 ```
 
-### Verify the Credential and the Presentation
-In this step we will as our code to verify the issued Verifiable Credential and its Presentation. 
+### Verify the Credentials and the Presentation
+In this step, we will use our code to verify the issued Verifiable Credential and its Presentation. 
 
-As an input we will use the JWT representation of them which in our case are already stored in the variables `vcJwt` and `vpJwt`.
+We will use their JWT representation as input, which is already stored in the variables `vcJwt` and `vpJwt`.
 
 The process will.
 1. Decode (unpack) the `JWT` strings
